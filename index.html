@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Танцюючий чувачок з літаючими сердечками</title>
+    <style>
+        /* Стиль для сторінки */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: monospace;
+            overflow: hidden; /* Запобігає прокрутці */
+        }
+
+        /* Чувачок з паличок */
+        #chuvachok {
+            position: relative;
+            font-size: 70px; /* Збільшений розмір для кращої видимості */
+            white-space: pre;
+            line-height: 1.2;
+            text-align: center;
+            z-index: 1;
+            animation: dance 1s steps(2) infinite;
+        }
+
+        /* Анімація для чувачка */
+        @keyframes dance {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(-10deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* Сердечка */
+        .heart {
+            position: absolute;
+            bottom: 0;
+            font-size: 24px;
+            color: red;
+            animation: fly 5s linear infinite;
+            opacity: 0;
+        }
+
+        /* Анімація для польоту сердечок */
+        @keyframes fly {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Сердечка змінюють кольори під час польоту */
+        @keyframes changeColor {
+            0% { color: red; }
+            25% { color: pink; }
+            50% { color: purple; }
+            75% { color: blue; }
+            100% { color: green; }
+        }
+
+        /* Рандомізація для зручного додавання нових сердечок */
+        @keyframes floatRandom {
+            0% { left: 10%; }
+            50% { left: 50%; }
+            100% { left: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Візуалізація чувачка ASCII -->
+<div id="chuvachok">
+    O<br>
+   /|\<br>
+   / \
+</div>
+
+<script>
+    // Функція для створення сердечок
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerText = '❤️';
+
+        // Рандомне положення та затримка для анімації
+        heart.style.left = Math.random() * 100 + 'vw'; // Ширина екрану
+        heart.style.animationDelay = Math.random() * 2 + 's'; // Затримка
+
+        document.body.appendChild(heart);
+
+        // Видалення сердечка після закінчення анімації
+        setTimeout(() => {
+            heart.remove();
+        }, 5000); // Тривалість анімації
+    }
+
+    // Інтервал для постійного створення сердечок
+    setInterval(createHeart, 500); // Кожні 500 мс створюється нове сердечко
+</script>
+
+</body>
+</html>
